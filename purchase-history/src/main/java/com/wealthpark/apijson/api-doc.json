@@ -1,0 +1,341 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "This application is collection of Rest APIs. Presently it contains end points to register customer, product, purchase product and purchase history.",
+		"version": "backend_API",
+		"title": "ProductHistory Backend API",
+		"termsOfService": "pallav.raj14@gmail.com",
+		"contact": {
+			"name": "PurchaseHistory Backend API"
+		},
+		"license": {
+			"name": "PurchaseHistry application",
+			"url": "https://github.com/PallavRaj14/"
+		}
+	},
+	"host": "localhost:8080",
+	"basePath": "/",
+	"tags": [
+		{
+			"name": "backend-controller",
+			"description": "End point for purchase and history"
+		}
+	],
+	"paths": {
+		"/product": {
+			"post": {
+				"tags": [
+					"purchase-history-service"
+				],
+				"summary": "register product",
+				"description": "This API registers products",
+				"operationId": "product",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "productRequestBean",
+						"description": "productRequestBean",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ProductRequestBean"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "string"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/purchaser": {
+			"post": {
+				"tags": [
+					"purchase-history-service"
+				],
+				"summary": "register purchaser",
+				"description": "This API registers purchaser",
+				"operationId": "customer",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "purchaserRequestBean",
+						"description": "purchaserRequestBean",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/PurchaserRequestBean"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "string"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/purchaser-product": {
+			"post": {
+				"tags": [
+					"purchase-history-service"
+				],
+				"summary": "purchase product",
+				"description": "This API registers purchase of products",
+				"operationId": "purchaseProduct",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "purchaseProductBean",
+						"description": "purchaseProductBean",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/PurchaseProductBean"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "string"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/purchaser/{purchaser_id}/product": {
+			"get": {
+				"tags": [
+					"purchase-history-service"
+				],
+				"summary": "purchase history",
+				"description": "This API returns purchase history",
+				"operationId": "getPurchaseHistory",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "purchaser_id",
+						"in": "path",
+						"description": "purchaser_id",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "start_date",
+						"in": "query",
+						"description": "start_date",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "end_date",
+						"in": "query",
+						"description": "end_date",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/PurchaseHistoryBean"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"PurchaseHistoryBean": {
+			"type": "object",
+			"properties": {
+				"date": {
+					"$ref": "#/definitions/Timestamp"
+				},
+				"err": {
+					"type": "string"
+				},
+				"prodName": {
+					"type": "string"
+				}
+			}
+		},
+		"PurchaserRequestBean": {
+			"type": "object",
+			"required": [
+				"userName"
+			],
+			"properties": {
+				"userName": {
+					"type": "string",
+					"example": "Domnic",
+					"description": "Purchaser name",
+					"enum": [
+						"String"
+					]
+				}
+			},
+			"description": "Request parameter for register user."
+		},
+		"ProductRequestBean": {
+			"type": "object",
+			"required": [
+				"productName"
+			],
+			"properties": {
+				"productName": {
+					"type": "string",
+					"example": "Tomato",
+					"description": "Product name"
+				}
+			},
+			"description": "Request parameter for register product."
+		},
+		"Timestamp": {
+			"type": "object",
+			"properties": {
+				"date": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"day": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"hours": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"minutes": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"month": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"nanos": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"seconds": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"time": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"timezoneOffset": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"year": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"PurchaseProductBean": {
+			"type": "object",
+			"required": [
+				"productId",
+				"purchaserId"
+			],
+			"properties": {
+				"productId": {
+					"type": "integer",
+					"format": "int32",
+					"example": 1,
+					"description": "Numeric id value of product"
+				},
+				"purchaserId": {
+					"type": "integer",
+					"format": "int32",
+					"example": 1,
+					"description": "Numeric id value of user"
+				}
+			},
+			"description": "Request parameter purchase product."
+		}
+	}
+}
