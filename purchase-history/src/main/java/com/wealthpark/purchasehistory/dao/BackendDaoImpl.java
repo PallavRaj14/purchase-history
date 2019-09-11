@@ -113,12 +113,9 @@ public class BackendDaoImpl implements BackendDao {
 				if (i == 0) {
 					Timestamp ts = (Timestamp) objects[i];
 					key = ts.toString().substring(0, 10);
-					System.out.println(key);
-
 				} else if (i == 1) {
 					value = (String) objects[i];
 					productName.add(value);
-					System.out.println(objects[i]);
 				}
 			}
 			if (!responseMap.containsKey(key)) {

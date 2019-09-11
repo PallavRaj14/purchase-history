@@ -31,7 +31,7 @@ public class SwaggerConfiguration {
 				"pallav.raj14@gmail.com",	
 				"PurchaseHistory Backend API",
 				"PurchaseHistry application",
-				"https://github.com/PallavRaj14/");
+				"https://github.com/PallavRaj14/purchase-history/tree/develop");
 				return apiInfo;
 	}
 	
