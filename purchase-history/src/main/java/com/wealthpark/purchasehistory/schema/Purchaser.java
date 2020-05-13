@@ -14,14 +14,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class Purchaser {
 	@Id
-	@Column(name="purchaser_id")
+	@Column(name = "purchaser_id")
 	int id;
 
-	@Column(name="name", unique = true)
+	@Column(name = "name", unique = true)
 	String userName;
 
-	@Column(name="created_date")
+	@Column(name = "created_date")
 	Timestamp createdDate;
+
+	@Column(name = "password")
+	String password;
+
+	@Column(name = "role")
+	String role;
+
+	@Column(name = "salt")
+	String salt;
 
 	public int getId() {
 		return id;
@@ -45,6 +54,30 @@ public class Purchaser {
 
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 }

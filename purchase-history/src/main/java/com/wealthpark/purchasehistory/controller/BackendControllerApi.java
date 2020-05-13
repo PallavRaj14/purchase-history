@@ -25,6 +25,8 @@ import io.swagger.annotations.ApiOperation;
 @Api(value="purchase-history-service", description="End point for purchase and history")
 public interface BackendControllerApi {
 	
+	@ApiOperation(value="welcome page", nickname="welcome",
+			notes="This API shows welcome page", tags= {"purchase-history-service"})
 	@GetMapping(value="/")
 	public String welcome();
 
