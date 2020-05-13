@@ -1,6 +1,5 @@
 package com.wealthpark.purchasehistory.bean;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;

@@ -22,20 +22,4 @@ public class BeanConfig {
 	    return new DefaultHttpFirewall();
 	}
 	
-	/*@Bean
-	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> 
-	    containerCustomizer(){
-	    return new EmbeddedTomcatCustomizer();
-	}*/
-
-/*	private static class EmbeddedTomcatCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
-
-	    @Override
-	    public void customize(TomcatServletWebServerFactory factory) {
-	        factory.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> {
-	            connector.setAttribute("relaxedPathChars", "<>[\\]^`{|}");
-	            connector.setAttribute("relaxedQueryChars", "<>[\\]^`{|}");
-	        });
-	    }
-	}*/
 }
