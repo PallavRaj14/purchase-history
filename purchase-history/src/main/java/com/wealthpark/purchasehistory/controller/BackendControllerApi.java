@@ -24,15 +24,18 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(value="purchase-history-service", description="End point for purchase and history")
 public interface BackendControllerApi {
+	
+	@GetMapping(value="/")
+	public String welcome();
 
 	@ApiOperation(value="register purchaser", nickname="customer",
 			notes="This API registers purchaser", tags= {"purchase-history-service"})
-	@PostMapping(value = "/purchaser")
+	@PostMapping(value = "/retail/purchaser")
 	public String customer(@Valid @RequestBody PurchaserRequestBean purchaserRequestBean, BindingResult result);
 	
 	@ApiOperation(value="register product", nickname="product",
 			notes="This API registers products", tags= {"purchase-history-service"})
-	@PostMapping(value = "/product")
+	@PostMapping(value = "/retail/product")
 	public String product(@Valid @RequestBody ProductRequestBean productRequestBean, BindingResult result);
 	
 	@ApiOperation(value="purchase product", nickname="purchaseProduct",
@@ -42,7 +45,7 @@ public interface BackendControllerApi {
 	
 	@ApiOperation(value="purchase history", nickname="getPurchaseHistory",
 			notes="This API returns purchase history", tags= {"purchase-history-service"})
-	@GetMapping(value = "/purchaser/{purchaser_id}/product", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/retail/purchaser/{purchaser_id}/product", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Map<String, List<String>> getPurchaseHistory(
 			@PathVariable(value = "purchaser_id", required = true) int purchaser_id,
 			@RequestParam(value = "start_date", required = true) String start_date,

@@ -153,4 +153,9 @@ public class BackendController implements BackendControllerApi {
 		return purchaseHistory;
 
 	}
+
+	@Override
+	public String welcome() {
+		return "<h1>Welcome to the application</h1>";
+	}
 }
