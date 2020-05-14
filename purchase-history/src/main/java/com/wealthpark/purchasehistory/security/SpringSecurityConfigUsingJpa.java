@@ -1,44 +1,26 @@
-package com.wealthpark.purchasehistory;
-
-import javax.sql.DataSource;
+package com.wealthpark.purchasehistory.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-/**
- * @author Pallav Raj
- * 
- */
-
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SpringSecurityConfigUsingJpa extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	DataSource dataSource;
+	UserDetailsService userDetailService;
 	
-	//Uncomment this code if you want in-memory authentication
-	/*
-	 * @Override protected void configure(AuthenticationManagerBuilder auth) throws
-	 * Exception { auth.inMemoryAuthentication() .withUser("user")
-	 * .password("bpassword") .roles("user") .and() .withUser("foo")
-	 * .password("foo") .roles("admin"); }
-	 */
-
-	// Comment below code if not using JDBC authentication
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select name, password, '1' from purchaser where name=?")
-				.authoritiesByUsernameQuery("select name, role from purchaser where name=?");
+		auth.userDetailsService(userDetailService);
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
@@ -46,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/").hasAnyAuthority("admin", "user")
 		.and().formLogin();
 	}
-
+	
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return NoOpPasswordEncoder.getInstance();

@@ -29,8 +29,8 @@ public class Purchaser {
 	@Column(name = "role")
 	String role;
 
-	@Column(name = "salt")
-	String salt;
+	@Column(name = "active")
+	boolean active;
 
 	public int getId() {
 		return id;
@@ -72,12 +72,12 @@ public class Purchaser {
 		this.role = role;
 	}
 
-	public String getSalt() {
-		return salt;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setSalt(String salt) {
-		this.salt = salt;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }
