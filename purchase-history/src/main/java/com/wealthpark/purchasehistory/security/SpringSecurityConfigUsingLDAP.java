@@ -7,25 +7,34 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
-public class SpringSecurityConfigUsingJpa extends WebSecurityConfigurerAdapter {
+public class SpringSecurityConfigUsingLDAP extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	UserDetailsService userDetailService;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailService);
+	    auth
+	      .ldapAuthentication()
+	        .userDnPatterns("uid={0},ou=people")
+	        .groupSearchBase("ou=groups")
+	        .contextSource()
+	          .url("ldap://localhost:8388/dc=springframework,dc=org")
+	          .and()
+	        .passwordCompare()
+	          .passwordEncoder(new BCryptPasswordEncoder())
+	          .passwordAttribute("userPassword");
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/retail/**").hasAnyAuthority("admin")
-		.antMatchers("/").hasAnyAuthority("admin", "user")
+		.anyRequest().fullyAuthenticated()
 		.and().formLogin();
 	}
 	
