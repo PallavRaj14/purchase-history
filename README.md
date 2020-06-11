@@ -1,5 +1,5 @@
 # purchase-history
-Swagger, Restful API, Spring Boot, Hibernate JPA, JUnit
+Swagger, Restful API, Spring Boot, Hibernate JPA, JUnit.</br>
 It contains different branches with different codes. Must check it.
 
 # Introduction:
